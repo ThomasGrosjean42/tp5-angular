@@ -5,6 +5,8 @@ import { ConsultActiviteComponent } from './consult-activite/consult-activite.co
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'index.html', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'consultAct', component: ConsultActiviteComponent },
   { path: 'consultAct/:id', component: ConsultActiviteComponent }
 ];

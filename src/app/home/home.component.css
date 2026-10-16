@@ -27,4 +27,24 @@ input[type="text"] {
 }
 .objectif {
   cursor: pointer;
+  background: #4a90d9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.animation-ajout {
+  animation: slide-fade 1s;
+}
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    background: #7fc8b0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    background: #4a90d9;
+  }
 }

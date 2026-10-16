@@ -16,10 +16,8 @@
     </form>
   </div>
   <div class="col">
-    <div [@objectifs]="activiteService.objectifs.length">
-      @for (objectif of activiteService.objectifs; track $index) {
-        <p class="objectif" (click)="voirActivite($index)">{{ objectif }}</p>
-      }
-    </div>
+    @for (objectif of activiteService.objectifs; track $index) {
+      <p class="objectif" animate.enter="animation-ajout" (click)="voirActivite($index)">{{ objectif }}</p>
+    }
   </div>
 </div>

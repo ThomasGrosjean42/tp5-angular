@@ -5,6 +5,8 @@ M2 CIM – Module Champ d'Application (Angular)
 Dépôt : https://github.com/ThomasGrosjean42/tp5-angular
 Site en ligne : https://thomasgrosjean42.github.io/tp5-angular/
 
+Le projet reprend celui du TP4 (animation `animate.enter`, routes `''`, `index.html`, `about`, `consultAct`, lien About2 en `href`, redirection vers About après un ajout avec `setTimeout`).
+
 ## Partie I : Services
 
 ### 1.1 – Création du service
@@ -15,17 +17,21 @@ J'ai généré le service avec `ng generate service services/activite`. Il a bie
 
 ### 1.2 – Injection dans HomeComponent
 
-J'importe le service et je l'injecte dans le constructeur. Je l'ai mis en `public` pour pouvoir l'utiliser directement dans le template.
+J'importe le service et je l'injecte dans le constructeur, à côté de `monRouteur` du TP4. Je l'ai mis en `public` pour pouvoir l'utiliser directement dans le template.
 
 ![Code 1.2](captures/code_q1.2_injection_home.png)
 
 ### 1.3 – Déplacement du tableau `objectifs`
 
-Le tableau est maintenant dans le service. Dans le HTML j'utilise `activiteService.objectifs` au lieu de `objectifs`. L'animation marche toujours, elle se base sur `activiteService.objectifs.length`.
+Le tableau est maintenant dans le service. Dans le HTML et dans `addItem()` j'utilise `activiteService.objectifs` au lieu de `objectifs`. L'animation du TP4 marche toujours : elle est sur chaque `<p>` avec `animate.enter="animation-ajout"`, donc elle se déclenche quand un élément est ajouté au tableau du service.
 
 ![Service](captures/code_q1.3a_service_tableau.png)
 
 ![Template de Home](captures/code_q1.3b_home_html.png)
+
+![addItem](captures/code_q1.3c_home_ts_ajout.png)
+
+![Animation CSS](captures/code_q1.3d_animation_css.png)
 
 Résultat :
 
@@ -33,9 +39,9 @@ Résultat :
 
 ### 1.4 – Vérification après navigation
 
-J'ai ajouté deux éléments, je suis allé sur About puis je suis revenu sur Home : les éléments sont toujours là. Comme le service est un singleton, tous les composants partagent le même tableau.
+J'ai ajouté un élément (on voit l'animation en cours), puis l'appli m'a redirigé sur About au bout d'1 seconde (`setTimeout` du TP4). En revenant sur Home, l'élément est toujours là. Comme le service est un singleton, tous les composants partagent le même tableau.
 
-![Ajout d'éléments](captures/02_q1.4_ajout_elements.png)
+![Ajout d'un élément, animation](captures/02_q1.4_ajout_element.png)
 
 ![Retour sur Home, la liste est conservée](captures/04_q1.4_retour_home_liste_conservee.png)
 
@@ -53,7 +59,7 @@ Résultat :
 
 ### 1.6 – Clic vers le détail d'une activité
 
-J'ai ajouté la route `consultAct/:id`. Sur Home, un clic sur une activité appelle `voirActivite($index)`, qui navigue vers `/consultAct/indice`.
+La route `consultAct/:id` existait déjà depuis le TP4. Sur Home, un clic sur une activité appelle `voirActivite($index)`, qui navigue vers `/consultAct/indice`.
 
 ![Route](captures/code_q1.6a_route.png)
 
@@ -63,7 +69,7 @@ J'ai ajouté la route `consultAct/:id`. Sur Home, un clic sur une activité appe
 
 ### 1.7 – Page de détail
 
-Dans `ConsultActiviteComponent`, je récupère l'indice avec `ActivatedRoute` et je vais chercher l'activité dans le tableau du service.
+Dans `ConsultActiviteComponent`, je récupère l'indice avec `ActivatedRoute` et je vais chercher l'activité dans le tableau du service. Si on va sur `/consultAct` sans indice, la page affiche « Aucune activité sélectionnée ».
 
 ![consult-activite.component.ts](captures/code_q1.7a_consult_ts.png)
 

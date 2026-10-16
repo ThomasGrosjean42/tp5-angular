@@ -15,8 +15,9 @@ export class ConsultActiviteComponent {
   edition = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private activiteService: ActiviteService) {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.activite = this.activiteService.objectifs[this.id];
+    const param = this.route.snapshot.paramMap.get('id');
+    this.id = Number(param);
+    this.activite = param === null ? '' : this.activiteService.objectifs[this.id];
   }
 
   supprimeElem(i: number) {
