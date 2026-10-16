@@ -11,19 +11,21 @@ Site en ligne : https://thomasgrosjean42.github.io/tp5-angular/
 
 J'ai généré le service avec `ng generate service services/activite`. Il a bien `providedIn: 'root'`, donc pas besoin de l'ajouter dans un tableau `providers`.
 
-![Code 1.1](captures/code_01_q1.1_service.png)
+![Code 1.1](captures/code_q1.1_service.png)
 
 ### 1.2 – Injection dans HomeComponent
 
 J'importe le service et je l'injecte dans le constructeur. Je l'ai mis en `public` pour pouvoir l'utiliser directement dans le template.
 
-![Code 1.2](captures/code_02_q1.2_injection_home.png)
+![Code 1.2](captures/code_q1.2_injection_home.png)
 
 ### 1.3 – Déplacement du tableau `objectifs`
 
 Le tableau est maintenant dans le service. Dans le HTML j'utilise `activiteService.objectifs` au lieu de `objectifs`. L'animation marche toujours, elle se base sur `activiteService.objectifs.length`.
 
-![Code 1.3](captures/code_03_q1.3_tableau_dans_service.png)
+![Service](captures/code_q1.3a_service_tableau.png)
+
+![Template de Home](captures/code_q1.3b_home_html.png)
 
 Résultat :
 
@@ -41,7 +43,9 @@ J'ai ajouté deux éléments, je suis allé sur About puis je suis revenu sur Ho
 
 Même chose dans `AboutComponent` : j'injecte le service et j'affiche la liste avec un `@for` dans un `<ol>`.
 
-![Code 1.5](captures/code_04_q1.5_about.png)
+![about.component.ts](captures/code_q1.5a_about_ts.png)
+
+![about.component.html](captures/code_q1.5b_about_html.png)
 
 Résultat :
 
@@ -51,23 +55,33 @@ Résultat :
 
 J'ai ajouté la route `consultAct/:id`. Sur Home, un clic sur une activité appelle `voirActivite($index)`, qui navigue vers `/consultAct/indice`.
 
-![Code 1.6](captures/code_05_q1.6_route_et_clic.png)
+![Route](captures/code_q1.6a_route.png)
+
+![Clic dans le template](captures/code_q1.6b_home_html_clic.png)
+
+![Navigation](captures/code_q1.6c_home_ts_navigation.png)
 
 ### 1.7 – Page de détail
 
 Dans `ConsultActiviteComponent`, je récupère l'indice avec `ActivatedRoute` et je vais chercher l'activité dans le tableau du service.
 
-![Code 1.7](captures/code_06_q1.7_consult_activite.png)
+![consult-activite.component.ts](captures/code_q1.7a_consult_ts.png)
+
+![consult-activite.component.html](captures/code_q1.7b_consult_html.png)
 
 Résultat :
 
-![Détail d'une activité](captures/05_q1.6_q1.7_detail_activite.png)
+![Détail d'une activité](captures/05_q1.7_detail_activite.png)
 
 ### 1.8 – Suppression
 
 `removeItem` dans le service fait un `splice`. Dans le composant, `supprimeElem(i)` appelle `removeItem` puis redirige vers la page d'accueil.
 
-![Code 1.8](captures/code_07_q1.8_suppression.png)
+![removeItem dans le service](captures/code_q1.8a_service_remove.png)
+
+![supprimeElem](captures/code_q1.8b_consult_ts_supprime.png)
+
+![Bouton Supprimer](captures/code_q1.8c_consult_html_bouton.png)
 
 Résultat (l'élément a disparu sur Home et sur About) :
 
@@ -79,7 +93,11 @@ Résultat (l'élément a disparu sur Home et sur About) :
 
 J'ai ajouté un booléen `edition`. Le bouton Modifier affiche un input (`[(ngModel)]`) et un bouton Sauvegarder, qui appelle `modifItem(index, titre)` dans le service.
 
-![Code 1.9](captures/code_08_q1.9_modification.png)
+![Template en mode édition](captures/code_q1.9a_consult_html_edition.png)
+
+![modifier / sauvegarder](captures/code_q1.9b_consult_ts_edition.png)
+
+![modifItem dans le service](captures/code_q1.9c_service_modif.png)
 
 Résultat :
 
