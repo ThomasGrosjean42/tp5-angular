@@ -97,22 +97,33 @@ J'ai ajouté un booléen `edition`. Le bouton Modifier affiche un input (`[(ngMo
 
 ## Partie II : Déploiement sur GitHub Pages
 
-Commandes utilisées :
+### 2.1 / 2.2 – Dépôt GitHub
+
+J'ai créé le dépôt `tp5-angular` (public) et je l'ai relié au projet :
 
 ```bash
-git init
+git init -b main
 git add .
-git commit -m "TP5"
-git branch -M main
-git remote add origin https://github.com/VOTRE_COMPTE/VOTRE_PROJET.git
+git commit -m "TP5 Angular - services et captures"
+git remote add origin https://github.com/ThomasGrosjean42/tp5-angular.git
 git push -u origin main
-
-ng add angular-cli-ghpages
-ng deploy --base-href="/VOTRE_PROJET/"
 ```
 
-Site en ligne : https://VOTRE_COMPTE.github.io/VOTRE_PROJET/
+Dépôt : https://github.com/ThomasGrosjean42/tp5-angular
 
-<!-- Ajouter ici les captures du dépôt GitHub et du site déployé -->
+![Dépôt GitHub](captures/10_q2.1_q2.2_depot_github.png)
 
-Remarque : si on recharge directement une page comme `/about` sur GitHub Pages, on obtient une 404, parce que GitHub ne connaît pas les routes Angular. Ce n'est pas un problème de déploiement. Une solution est de copier `index.html` en `404.html` dans le build.
+### 2.3 / 2.4 – Déploiement
+
+```bash
+ng add angular-cli-ghpages
+ng deploy --base-href="/tp5-angular/"
+```
+
+`ng deploy` fait le build et pousse le résultat sur la branche `gh-pages`, qui est publiée par GitHub Pages.
+
+Site en ligne : https://thomasgrosjean42.github.io/tp5-angular/
+
+![Site déployé](captures/11_q2.4_site_deploye.png)
+
+Remarque : si on recharge directement une page comme `/about` sur GitHub Pages, on obtient une 404, parce que GitHub ne connaît pas les routes Angular. Ce n'est pas un problème de déploiement. `angular-cli-ghpages` crée automatiquement un `404.html` (copie de `index.html`), donc l'appli se charge quand même.
