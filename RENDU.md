@@ -2,29 +2,30 @@
 
 M2 CIM – Module Champ d'Application (Angular)
 
+Dépôt : https://github.com/ThomasGrosjean42/tp5-angular
+Site en ligne : https://thomasgrosjean42.github.io/tp5-angular/
+
 ## Partie I : Services
 
-### 1.1 / 1.2 – Création et injection du service
+### 1.1 – Création du service
 
 J'ai généré le service avec `ng generate service services/activite`. Il a bien `providedIn: 'root'`, donc pas besoin de l'ajouter dans un tableau `providers`.
 
-Ensuite je l'ai injecté dans le constructeur de `HomeComponent` :
+![Code 1.1](captures/code_01_q1.1_service.png)
 
-```ts
-constructor(public activiteService: ActiviteService, private router: Router) { }
-```
+### 1.2 – Injection dans HomeComponent
 
-Je l'ai mis en `public` pour pouvoir l'utiliser directement dans le template.
+J'importe le service et je l'injecte dans le constructeur. Je l'ai mis en `public` pour pouvoir l'utiliser directement dans le template.
+
+![Code 1.2](captures/code_02_q1.2_injection_home.png)
 
 ### 1.3 – Déplacement du tableau `objectifs`
 
-Le tableau est maintenant dans le service (`services/activite.service.ts`) :
+Le tableau est maintenant dans le service. Dans le HTML j'utilise `activiteService.objectifs` au lieu de `objectifs`. L'animation marche toujours, elle se base sur `activiteService.objectifs.length`.
 
-```ts
-objectifs = ['Un element', 'deux elements', 'trois elements!'];
-```
+![Code 1.3](captures/code_03_q1.3_tableau_dans_service.png)
 
-Dans le HTML j'utilise `activiteService.objectifs` au lieu de `objectifs`. L'animation marche toujours, elle se base sur `activiteService.objectifs.length`.
+Résultat :
 
 ![Home avec le service](captures/01_home_service_injecte.png)
 
@@ -40,56 +41,47 @@ J'ai ajouté deux éléments, je suis allé sur About puis je suis revenu sur Ho
 
 Même chose dans `AboutComponent` : j'injecte le service et j'affiche la liste avec un `@for` dans un `<ol>`.
 
-```html
-<ol>
-  @for (objectif of activiteService.objectifs; track $index) {
-    <li>{{ objectif }}</li>
-  }
-</ol>
-```
+![Code 1.5](captures/code_04_q1.5_about.png)
+
+Résultat :
 
 ![About affiche la même liste](captures/03_q1.5_about_meme_liste.png)
 
-### 1.6 / 1.7 – Détail d'une activité
+### 1.6 – Clic vers le détail d'une activité
 
-Route ajoutée dans `app.routes.ts` :
+J'ai ajouté la route `consultAct/:id`. Sur Home, un clic sur une activité appelle `voirActivite($index)`, qui navigue vers `/consultAct/indice`.
 
-```ts
-{ path: 'consultAct/:id', component: ConsultActiviteComponent }
-```
+![Code 1.6](captures/code_05_q1.6_route_et_clic.png)
 
-Sur Home, un clic sur une activité appelle `voirActivite($index)`, qui fait `router.navigate(['/consultAct', i])`.
+### 1.7 – Page de détail
 
-Dans `ConsultActiviteComponent`, je récupère l'indice avec `ActivatedRoute` et je vais chercher l'activité dans le service :
+Dans `ConsultActiviteComponent`, je récupère l'indice avec `ActivatedRoute` et je vais chercher l'activité dans le tableau du service.
 
-```ts
-this.id = Number(this.route.snapshot.paramMap.get('id'));
-this.activite = this.activiteService.objectifs[this.id];
-```
+![Code 1.7](captures/code_06_q1.7_consult_activite.png)
+
+Résultat :
 
 ![Détail d'une activité](captures/05_q1.6_q1.7_detail_activite.png)
 
 ### 1.8 – Suppression
 
-Fonction ajoutée dans le service :
+`removeItem` dans le service fait un `splice`. Dans le composant, `supprimeElem(i)` appelle `removeItem` puis redirige vers la page d'accueil.
 
-```ts
-removeItem(index: number) {
-  this.objectifs.splice(index, 1);
-}
-```
+![Code 1.8](captures/code_07_q1.8_suppression.png)
 
-Dans le composant, `supprimeElem(i)` appelle `removeItem` puis redirige vers la page d'accueil.
+Résultat (l'élément a disparu sur Home et sur About) :
 
 ![Après suppression](captures/08_q1.8_apres_suppression.png)
-
-La page About est aussi à jour, puisque c'est le même tableau :
 
 ![About après suppression](captures/09_q1.8_about_apres_suppression.png)
 
 ### 1.9 – Modification du titre
 
 J'ai ajouté un booléen `edition`. Le bouton Modifier affiche un input (`[(ngModel)]`) et un bouton Sauvegarder, qui appelle `modifItem(index, titre)` dans le service.
+
+![Code 1.9](captures/code_08_q1.9_modification.png)
+
+Résultat :
 
 ![Mode édition](captures/06_q1.9_edition.png)
 
@@ -109,8 +101,6 @@ git remote add origin https://github.com/ThomasGrosjean42/tp5-angular.git
 git push -u origin main
 ```
 
-Dépôt : https://github.com/ThomasGrosjean42/tp5-angular
-
 ![Dépôt GitHub](captures/10_q2.1_q2.2_depot_github.png)
 
 ### 2.3 / 2.4 – Déploiement
@@ -122,8 +112,6 @@ ng deploy --base-href="/tp5-angular/"
 
 `ng deploy` fait le build et pousse le résultat sur la branche `gh-pages`, qui est publiée par GitHub Pages.
 
-Site en ligne : https://thomasgrosjean42.github.io/tp5-angular/
-
 ![Site déployé](captures/11_q2.4_site_deploye.png)
 
-Remarque : si on recharge directement une page comme `/about` sur GitHub Pages, on obtient une 404, parce que GitHub ne connaît pas les routes Angular. Ce n'est pas un problème de déploiement. `angular-cli-ghpages` crée automatiquement un `404.html` (copie de `index.html`), donc l'appli se charge quand même.
+Remarque : si on recharge directement une page comme `/about` sur GitHub Pages, GitHub ne connaît pas les routes Angular. Ce n'est pas un problème de déploiement. `angular-cli-ghpages` crée automatiquement un `404.html` (copie de `index.html`), donc l'appli se charge quand même.
