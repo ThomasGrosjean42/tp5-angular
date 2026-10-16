@@ -1,0 +1,18 @@
+<h3>Detail de l'activité:</h3>
+<ol>
+  <li>Nom de l'activité:
+    @if (edition) {
+      <input type="text" [(ngModel)]="activite" />
+    } @else {
+      <b>{{ activite }}</b>
+    }
+  </li>
+</ol>
+
+<button class="rouge" (click)="supprimeElem(id)">Supprimer</button>
+@if (edition) {
+  <button class="bleu" (click)="sauvegarder()">Sauvegarder</button>
+} @else {
+  <button class="bleu" (click)="modifier()">Modifier</button>
+  <button class="vert" (click)="retour()">Retour</button>
+}

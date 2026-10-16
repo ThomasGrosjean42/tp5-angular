@@ -1,0 +1,30 @@
+.color-dark, .color-light {
+  display: grid;
+  grid-template-columns: 50% auto;
+  padding: 10px 30px;
+}
+.color-dark {
+  background: #2585c7;
+  transform: rotate(1deg);
+}
+.color-light {
+  background: #5ab1ef;
+  padding: 30px;
+  transform: rotate(-1deg);
+}
+input[type="text"] {
+  border: 0;
+  padding: 10px;
+  width: 85%;
+}
+.btn {
+  display: block;
+  margin: 20px 0 0 25%;
+  background: #b9474b;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+}
+.objectif {
+  cursor: pointer;
+}

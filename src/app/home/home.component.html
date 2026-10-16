@@ -1,0 +1,25 @@
+<div class="color-dark">
+  <div class="col">
+    <p>Un élément de la liste</p>
+  </div>
+  <div class="col">
+    <p>Ma liste d'éléments ({{ activiteService.objectifs.length }})</p>
+  </div>
+</div>
+
+<div class="color-light">
+  <div class="col">
+    <form>
+      <label>Un nouvel élément de la liste</label>
+      <input type="text" name="item" [(ngModel)]="objectifText" />
+      <input type="submit" class="btn" [value]="btnText" (click)="addItem()" />
+    </form>
+  </div>
+  <div class="col">
+    <div [@objectifs]="activiteService.objectifs.length">
+      @for (objectif of activiteService.objectifs; track $index) {
+        <p class="objectif" (click)="voirActivite($index)">{{ objectif }}</p>
+      }
+    </div>
+  </div>
+</div>
